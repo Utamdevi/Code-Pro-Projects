@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --surface-1: #020617; /* Slate 950 */
+    --surface-2: #0f172a; /* Slate 900 */
+    --border: #1e293b;     /* Slate 800 */
+    --border-strong: #334155; /* Slate 700 */
+    --text-primary: #f8fafc;  /* Slate 50 */
+    --text-secondary: #cbd5e1;/* Slate 300 */
+    --text-muted: #64748b;    /* Slate 500 */
+  }
+}
