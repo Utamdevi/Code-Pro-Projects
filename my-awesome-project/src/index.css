@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Dashboard Theme Wrapper Styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Beautiful Background Glassmorphism Theme Container */
+.dashboard-app-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  /* Soft interactive modern gradient wallpaper */
+  background: radial-gradient(circle at top left, #f3f4f6 0%, #e0e7ff 40%, #fae8ff 80%);
+}
+
+/* Dark Mode alternative override support */
+@media (prefers-color-scheme: dark) {
+  .dashboard-app-container {
+    background: radial-gradient(circle at top left, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+  }
+}
+
+/* Custom left padding class for absolute alignment alignment below avatars */
+.pl-18 {
+  padding-left: 4.5rem; /* 72px matches avatar diameter structure nicely */
+}
