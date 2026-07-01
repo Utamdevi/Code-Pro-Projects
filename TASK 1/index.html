@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Premium Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header class="gallery-header">
+        <h1>ShopFusion</h1>
+        <p>Discover amazing products at unbeatable prices.</p>
+    </header>
+
+    <div class="controls-panel">
+        <div class="control-group search-group">
+            <label for="search-input">Search items</label>
+            <input type="text" id="search-input" placeholder="What are you hunting for today?">
+        </div>
+
+        <div class="control-group">
+            <label for="category-filter">Category</label>
+            <select id="category-filter">
+                <option value="all">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="apparel">Apparel</option>
+                <option value="footwear">Footwear</option>
+                <option value="accessories">Accessories</option>
+                <option value="fitness">Fitness</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="price-filter">Max Price: Rs. <span id="price-val">90,000</span></label>
+            <div class="price-range-wrapper">
+                <input type="range" id="price-filter" min="2000" max="90000" value="90000" step="500">
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid">
+        </div>
+
+    <div class="pagination" id="pagination-controls">
+        </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
