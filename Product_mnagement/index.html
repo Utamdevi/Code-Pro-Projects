@@ -1,0 +1,123 @@
+<!-- Index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RupeeFlow</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-950 font-sans antialiased text-slate-100 min-h-screen selection:bg-fuchsia-500/30 selection:text-fuchsia-200">
+
+    <!-- Subtle Background Ambient Glows -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="fixed bottom-10 right-1/4 w-96 h-96 bg-fuchsia-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <!-- Header Section -->
+        <header class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 backdrop-blur-md bg-slate-900/40 p-6 rounded-2xl border border-slate-800/60 shadow-xl shadow-slate-950/20">
+            <div class="text-center sm:text-left">
+                <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r align-middle from-indigo-400 via-purple-400 to-fuchsia-400 bg-clip-text text-transparent">RupeeFlow</h1>
+                <p class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Monitor local stock, manage PKR pricing, and view live system status.</p>
+            </div>
+            <div>
+                <button id="openModalBtn" class="w-full sm:w-auto inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_25px_rgba(147,51,234,0.5)] transition-all duration-300">
+                    + Add Product
+                </button>
+            </div>
+        </header>
+
+        <!-- Controls Section (Search & Filter) -->
+        <div class="mb-6 flex flex-col md:flex-row gap-4 items-center justify-between backdrop-blur-md bg-slate-900/30 p-4 rounded-xl border border-slate-800/50 shadow-lg">
+            <div class="w-full md:max-w-md relative">
+                <input type="text" id="searchInput" placeholder="Search by product name..." class="w-full pl-4 pr-10 py-2.5 bg-slate-900/60 border border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 focus:outline-none text-sm text-slate-100 placeholder-slate-500 transition-all">
+            </div>
+            <div class="w-full md:w-56">
+                <select id="categoryFilter" class="w-full px-3 py-2.5 bg-slate-900/60 border border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 focus:outline-none text-sm text-slate-100 transition-all">
+                    <option value="all">All Categories</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Apparel & Clothing">Apparel & Clothing</option>
+                    <option value="Groceries & Food">Groceries & Food</option>
+                    <option value="Home Appliances">Home Appliances</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Desktop/Tablet View Table -->
+        <div class="hidden md:block overflow-hidden backdrop-blur-md bg-slate-900/20 border border-slate-800/60 rounded-2xl shadow-2xl">
+            <table class="min-w-full divide-y divide-slate-800/60">
+                <thead class="bg-slate-950/60">
+                    <tr>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">ID</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider cursor-pointer select-none hover:text-purple-400 transition-colors" id="sortName">Name ↑↓</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Category</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider cursor-pointer select-none hover:text-purple-400 transition-colors" id="sortPrice">Price ↑↓</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Status</th>
+                        <th scope="col" class="px-6 py-4 text-right text-xs font-bold text-slate-400 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody" class="divide-y divide-slate-800/40 bg-transparent">
+                    <!-- Dynamic JavaScript Injection -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mobile Responsive Grid View -->
+        <div id="productMobileGrid" class="grid grid-cols-1 gap-4 md:hidden">
+            <!-- Dynamic JavaScript Injection -->
+        </div>
+    </div>
+
+    <!-- Modal Form (Create / Update) -->
+    <div id="productModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/80 flex items-center justify-center p-4 backdrop-blur-md transition-all duration-300">
+        <div class="relative bg-slate-900/90 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-800 transform transition-all backdrop-blur-xl">
+            <div class="bg-slate-950/50 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                <h3 id="modalTitle" class="text-lg font-bold text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text">Add New Product</h3>
+                <button id="closeModalBtn" class="text-slate-400 hover:text-fuchsia-400 text-2xl font-light transition-colors leading-none">&times;</button>
+            </div>
+            <form id="productForm" class="p-6 space-y-4">
+                <input type="hidden" id="productId">
+                
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Product Name</label>
+                    <input type="text" id="productName" required class="w-full px-3 py-2 bg-slate-950/50 border border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 focus:outline-none text-sm text-slate-100 transition-all">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Category</label>
+                    <select id="productCategory" required class="w-full px-3 py-2 bg-slate-950/50 border border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 focus:outline-none text-sm text-slate-100 transition-all">
+                        <option value="Electronics">Electronics</option>
+                        <option value="Apparel & Clothing">Apparel & Clothing</option>
+                        <option value="Groceries & Food">Groceries & Food</option>
+                        <option value="Home Appliances">Home Appliances</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Price (PKR ₨)</label>
+                        <input type="number" id="productPrice" min="0" required class="w-full px-3 py-2 bg-slate-950/50 border border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 focus:outline-none text-sm text-slate-100 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Stock Status</label>
+                        <select id="productStatus" class="w-full px-3 py-2 bg-slate-950/50 border border-slate-800 rounded-xl focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 focus:outline-none text-sm text-slate-100 transition-all">
+                            <option value="In Stock">In Stock</option>
+                            <option value="Low Stock">Low Stock</option>
+                            <option value="Out of Stock">Out of Stock</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-800/80 flex justify-end gap-3">
+                    <button type="button" id="cancelModalBtn" class="px-4 py-2 border border-slate-800 rounded-xl text-sm font-medium text-slate-300 bg-transparent hover:bg-slate-800/60 transition-colors">Cancel</button>
+                    <button type="submit" class="px-4 py-2 text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-[0_0_15px_rgba(147,51,234,0.2)] transition-all">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
